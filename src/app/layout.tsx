@@ -15,8 +15,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang='en'>
+      <body className={inter.className}>
+        <div className='relative shadow-md py-6 flex justify-center'>
+          <div className='w-full px-8 max-w-7xl flex justify-between text-primary'>
+            <h1 className='text-xl font-bold '>Where in the world?</h1>
+            <p>Dark mode</p>
+          </div>
+        </div>
+        {children}
+      </body>
     </html>
   );
 }
