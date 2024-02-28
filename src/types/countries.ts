@@ -10,12 +10,7 @@ export interface Country {
   independent?: boolean;
   status: string;
   unMember: boolean;
-  currencies?: {
-    [key: string]: {
-      name: string;
-      symbol: string;
-    };
-  };
+  currencies?: Currencies;
   idd: {
     root: string;
     suffixes: string[];
@@ -58,13 +53,22 @@ export interface Country {
 export interface Name {
   common: string;
   official: string;
-  nativeName?: {
-    [key: string]: {
-      official: string;
-      common: string;
-    };
-  };
+  nativeName?: NativeNames;
 }
+
+export type NativeNames = {
+  [key: string]: {
+    official: string;
+    common: string;
+  };
+};
+
+export type Currencies = {
+  [key: string]: {
+    name: string;
+    symbol: string;
+  };
+};
 
 export interface Maps {
   googleMaps: string;

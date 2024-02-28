@@ -10,4 +10,16 @@ class Http {
   }
 }
 
+class AuthHttp {
+  instance: AxiosInstance;
+  constructor() {
+    this.instance = axios.create({
+      baseURL: "https://api-ecom.duthanhduoc.com/",
+      timeout: 20000,
+    });
+  }
+}
+
 export const http = new Http().instance;
+
+export const authHttp = new AuthHttp().instance;
