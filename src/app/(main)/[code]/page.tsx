@@ -1,10 +1,10 @@
-import { countriesApis } from "@/apis/data";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { formatPopulation, getCommonNames } from "@/lib/utils";
+import { Badge } from "src/components/ui/badge";
+import { Button } from "src/components/ui/button";
+import { formatPopulation, getCommonNames } from "src/lib/utils";
 import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { countriesApis } from "src/apis/data";
 
 async function Country({ params }: { params: { code: string } }) {
   const data = await countriesApis.getCountryByCode(params.code);
@@ -17,16 +17,25 @@ async function Country({ params }: { params: { code: string } }) {
     <div className="">
       <div className="mb-12">
         <Link href={"/"} className="py-2">
-          <Button variant="outline" className="px-6">
+          <Button
+            variant="outline"
+            className="duration-150 dark:hover:bg-dark-blue"
+          >
             <ArrowLeft className="mr-2 h-4 w-4" />
             <p>Back</p>
           </Button>
         </Link>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2">
-        <div className="md:pr-12">
-          <div className="relative h-[200px] md:h-[300px]">
-            <Image alt="Country Flag" src={countryData.flags.svg} fill />
+      <div className="grid grid-cols-1 md:grid-cols-2 ">
+        <div className="pb-8 md:pb-0 md:pr-12">
+          <div className="flex items-center justify-center">
+            <Image
+              alt="Country Flag"
+              src={countryData.flags.svg}
+              width={0}
+              height={0}
+              className="h-full w-auto"
+            />
           </div>
         </div>
         <div>
@@ -86,7 +95,7 @@ async function Country({ params }: { params: { code: string } }) {
                   <Badge
                     key={country.cca3}
                     variant="default"
-                    className="bg-dark-blue my-1 mr-2 px-4 py-2 text-base font-normal duration-200 hover:shadow dark:bg-white"
+                    className="my-1 mr-2 bg-dark-blue px-4 py-2 text-base font-normal duration-200 hover:shadow dark:bg-white"
                   >
                     {country.name.common}
                   </Badge>

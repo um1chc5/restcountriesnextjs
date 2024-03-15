@@ -1,6 +1,6 @@
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from "src/components/ui/toaster";
 import { Nunito } from "next/font/google";
-import "@/app/globals.css";
+import "src/app/globals.css";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

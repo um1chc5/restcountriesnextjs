@@ -1,7 +1,9 @@
-import { countriesApis } from "@/apis/data";
-import CountryCard from "@/components/common/countryCard";
-import CountrySearch from "@/components/filter/countrySearch";
-import RegionSelect from "@/components/filter/regionSelect";
+import { countriesApis } from "src/apis/data";
+import CountryCard from "src/components/common/countryCard";
+import CountrySearch from "src/components/filter/countrySearch";
+import RegionSelect from "src/components/filter/regionSelect";
+import { Country } from "src/types/countries";
+
 
 export default async function Home({
   searchParams,
@@ -11,18 +13,27 @@ export default async function Home({
     country_name?: string;
   };
 }) {
-  const { getAllCountries, getCountriesByName, getCountriesByRegion } =
-    countriesApis;
+  const {
+    getAllCountries,
+    getCountriesByName,
+    getCountriesByRegion,
+    getAllCountriesNoCache,
+    getAllCountriesFetch
+  } = countriesApis;
 
   const countries = searchParams.region
     ? await getCountriesByRegion(searchParams.region)
     : searchParams.country_name
       ? await getCountriesByName(searchParams.country_name)
-      : await getAllCountries();
+      : await getAllCountriesFetch();
 
   if (searchParams.country_name) {
     console.log(searchParams.country_name, countries);
   }
+
+  const hehe = await getAllCountriesFetch();
+  const hehe2 = await getAllCountriesFetch();
+  // const hehe3 = await getAllCountries();e
 
   return (
     <main className=" min-h-screen">
@@ -31,10 +42,11 @@ export default async function Home({
         <RegionSelect />
       </div>
       <div className="grid w-full grid-cols-1 content-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {countries?.data.map((country) => (
+        {countries?.data.map((country: Country) => (
           <CountryCard country={country} key={country.cca3} />
         ))}
       </div>
     </main>
   );
 }
+  

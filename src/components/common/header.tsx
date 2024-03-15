@@ -2,8 +2,11 @@ import Link from "next/link";
 import React from "react";
 import { Button } from "../ui/button";
 import ThemeToggle from "../ui/themeToggle";
+import { countriesApis } from "src/apis/data";
 
-function Header() {
+async function  Header() {
+
+
   return (
     <div className="dark:bg-dark-blue relative flex justify-center py-6 shadow-md">
       <div className="flex w-full max-w-7xl items-center justify-between px-8 text-primary">

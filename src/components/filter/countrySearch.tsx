@@ -3,7 +3,7 @@
 import { ChangeEvent } from "react";
 import { Input } from "../ui/input";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { debounce } from "@/lib/utils";
+import { debounce } from "src/lib/utils";
 
 function CountrySearch() {
   const router = useRouter();

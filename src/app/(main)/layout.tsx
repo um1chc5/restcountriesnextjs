@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
-import "@/app/globals.css";
-import { Toaster } from "@/components/ui/toaster";
-import Header from "@/components/common/header";
+import "src/app/globals.css";
+import { Toaster } from "src/components/ui/toaster";
+import Header from "src/components/common/header";
 
 const nunito = Nunito({ subsets: ["vietnamese"] });
 
@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${nunito.className}`}>
         <Header />
-        <div className="dark:bg-very-dark-blue flex min-h-screen justify-center">
+        <div className="flex min-h-screen justify-center dark:bg-very-dark-blue">
           <div className="w-full max-w-7xl p-16">{children}</div>
         </div>
         <Toaster />

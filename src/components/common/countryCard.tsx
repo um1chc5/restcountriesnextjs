@@ -1,13 +1,14 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { Country } from "@/types/countries";
+import { Card, CardContent } from "src/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { Country } from "src/types/countries";
 
 function CountryCard({ country }: { country: Country }) {
+  // console.log("trong component", country);
   return (
     <Link key={country.cca2} href={`/${country.cca3}`}>
-      <Card className="dark:bg-dark-blue h-full transition-transform duration-200 hover:translate-y-[-4px] hover:shadow">
+      <Card className="h-full transition-transform duration-200 hover:translate-y-[-4px] hover:shadow dark:bg-dark-blue">
         <div className="relative mb-8 h-40">
           <Image
             alt={country.name.official}

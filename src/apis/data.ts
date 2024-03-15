@@ -1,10 +1,31 @@
-import { Countries } from "@/types/countries";
+import { Countries } from "src/types/countries";
 import { http } from "./http";
-import { unstable_noStore as noStore } from "next/cache";
+import { cache } from "react";
+
 
 export const countriesApis = {
-  getAllCountries: async function () {
+  getAllCountries: cache(async function () {
     try {
+      console.log("hehe");
+      const data = await http.get<Countries>("all");
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }),
+  getAllCountriesFetch: cache(async function () {
+    try {
+      // console.log("hehe fetch");
+      const res = await fetch('https://restcountries.com/v3.1/all');
+      const data = await res.json()
+      return {data: data as Countries} 
+    } catch (error) {
+      throw error;
+    }
+  }),
+  getAllCountriesNoCache: async function () {
+    try {
+      console.log("hehe");
       const data = await http.get<Countries>("all");
       return data;
     } catch (error) {
@@ -12,7 +33,6 @@ export const countriesApis = {
     }
   },
   getCountryByCode: async function (code: string) {
-    noStore();
     try {
       const data = await http.get<Countries>(`alpha/${code}`);
       return data;

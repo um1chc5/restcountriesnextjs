@@ -11,13 +11,15 @@ import {
   SelectValue,
 } from "../ui/select";
 
+/**
+ * Region Selection Dropdown
+ */
 function RegionSelect() {
   const router = useRouter();
   const pathname = usePathname();
 
   const handleRegionSelect = (value: string) => {
     const params = new URLSearchParams();
-
     if (value) {
       params.set("region", value);
       router.replace(`${pathname}?${params.toString()}`);
