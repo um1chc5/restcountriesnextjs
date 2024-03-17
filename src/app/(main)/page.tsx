@@ -4,7 +4,6 @@ import CountrySearch from "src/components/filter/countrySearch";
 import RegionSelect from "src/components/filter/regionSelect";
 import { Country } from "src/types/countries";
 
-
 export default async function Home({
   searchParams,
 }: {
@@ -18,7 +17,7 @@ export default async function Home({
     getCountriesByName,
     getCountriesByRegion,
     getAllCountriesNoCache,
-    getAllCountriesFetch
+    getAllCountriesFetch,
   } = countriesApis;
 
   const countries = searchParams.region
@@ -27,13 +26,10 @@ export default async function Home({
       ? await getCountriesByName(searchParams.country_name)
       : await getAllCountriesFetch();
 
-  if (searchParams.country_name) {
-    console.log(searchParams.country_name, countries);
-  }
+  console.log(searchParams);
 
   const hehe = await getAllCountriesFetch();
   const hehe2 = await getAllCountriesFetch();
-  // const hehe3 = await getAllCountries();e
 
   return (
     <main className=" min-h-screen">
@@ -49,4 +45,3 @@ export default async function Home({
     </main>
   );
 }
-  

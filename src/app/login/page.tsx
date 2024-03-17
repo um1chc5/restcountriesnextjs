@@ -12,6 +12,7 @@ import { z } from "zod";
 import { object, string, number, date, InferType } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { login } from "src/apis/mutation";
+import { signIn, useSession } from "next-auth/react";
 
 const FormSchema = z.object({
   email: z
@@ -28,6 +29,7 @@ const YupFormSchema = object({
 });
 
 function Login() {
+  const { update } = useSession();
   const { toast } = useToast();
   const { push } = useRouter();
   const form = useForm<InferType<typeof YupFormSchema>>({
@@ -47,10 +49,18 @@ function Login() {
   const onSubmit = async (data: InferType<typeof YupFormSchema>) => {
     try {
       const res = await login(data.email, data.password);
-      toast({
-        title: "Đăng nhập thành công",
-      });
-      push("/");
+      console.log(res);
+      if (res?.status === 200) {
+        signIn("credentials", {
+          callbackUrl: "/",
+          email: data.email,
+          access_token: res?.data.data.access_token,
+          refresh_token: res?.data.data.refresh_token,
+        });
+        toast({
+          title: "Đăng nhập thành công",
+        });
+      }
     } catch (error) {
       console.log(error);
     }
@@ -65,7 +75,7 @@ function Login() {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <Input {...register("email")} placeholder="Type your username" />
-              <div className="text-sm h-[20px] text-red-700">
+              <div className="h-[20px] text-sm text-red-700">
                 {errors.email?.message}
               </div>
             </FormItem>
@@ -73,10 +83,10 @@ function Login() {
               <FormLabel>Password</FormLabel>
               <Input
                 {...register("password")}
-                type="password"
+                autoComplete="current-password"
                 placeholder="Type your password"
               />
-              <div className="text-sm h-[20px] text-red-700">
+              <div className="h-[20px] text-sm text-red-700">
                 {errors.password?.message}
               </div>
             </FormItem>
