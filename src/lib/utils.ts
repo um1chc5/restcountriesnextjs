@@ -1,5 +1,5 @@
-import { NativeNames } from "@/types/countries";
 import { type ClassValue, clsx } from "clsx";
+import { NativeNames } from "src/types/countries";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
