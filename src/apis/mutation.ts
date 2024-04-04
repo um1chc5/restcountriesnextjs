@@ -1,4 +1,4 @@
-import { authHttp } from "./http";
+import { authHttp, tokenStorage } from "./http";
 
 export async function login(email: string, password: string) {
   try {

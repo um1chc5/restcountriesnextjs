@@ -1,24 +1,16 @@
 "use client";
 
-import { Button } from "src/components/ui/button";
-import { Card } from "src/components/ui/card";
-import { Form, FormItem, FormLabel } from "src/components/ui/form";
-import { Input } from "src/components/ui/input";
-import { useToast } from "src/components/ui/use-toast";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { object, string, number, date, InferType } from "yup";
+import { object, string, InferType } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Card } from "src/components/ui/card";
+import { Form, FormItem, FormLabel } from "src/components/ui/form";
+import { useToast } from "src/components/ui/use-toast";
+import { Input } from "src/components/ui/input";
+import { Button } from "src/components/ui/button";
 import { login } from "src/apis/mutation";
-
-const FormSchema = z.object({
-  email: z
-    .string({ required_error: "Email is required" })
-    .email("Email is invalid"),
-  password: z.string({ required_error: "Password is required" }),
-});
+import { nextServerHttp } from "src/apis/http";
 
 const YupFormSchema = object({
   email: string().email("Email is invalid").required("Email is required"),
@@ -50,6 +42,7 @@ function Login() {
       toast({
         title: "Đăng nhập thành công",
       });
+      nextServerHttp.post("/api/auth", res?.data);
       // push("/");
     } catch (error) {
       console.log(error);
@@ -59,7 +52,8 @@ function Login() {
   return (
     <div className="flex justify-center ">
       <Card className="w-full p-8 sm:w-3/4 md:w-1/2 xl:w-1/3">
-        <h1 className="mb-3 text-center text-3xl font-bold">LOGIN</h1>
+        <h1 className="text-center text-xl font-bold">LOGIN</h1>
+        <p className="mb-3  text-center">Cookie Token Architecture</p>
         <Form {...form}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <FormItem>
