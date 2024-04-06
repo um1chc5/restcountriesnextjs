@@ -3,6 +3,8 @@ import { Nunito } from "next/font/google";
 import "src/app/globals.css";
 import { Toaster } from "src/components/ui/toaster";
 import Header from "src/components/common/header";
+import AppProvider from "../_AppProvider/AppProvider";
+import { cookies } from "next/headers";
 
 const nunito = Nunito({ subsets: ["vietnamese"] });
 
@@ -16,14 +18,23 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStore = cookies();
+
+  const initialTokens = {
+    access_token: cookieStore.get("access_token")?.value!,
+    refresh_token: cookieStore.get("refresh_token")?.value!,
+  };
+
   return (
     <html lang="en">
       <body className={`${nunito.className}`}>
-        <Header />
-        <div className="flex min-h-screen justify-center dark:bg-very-dark-blue">
-          <div className="w-full max-w-7xl p-16">{children}</div>
-        </div>
-        <Toaster />
+        <AppProvider initialTokens={initialTokens}>
+          <Header />
+          <div className="flex min-h-screen justify-center dark:bg-very-dark-blue">
+            <div className="w-full max-w-7xl p-16">{children}</div>
+          </div>
+          <Toaster />
+        </AppProvider>
       </body>
     </html>
   );

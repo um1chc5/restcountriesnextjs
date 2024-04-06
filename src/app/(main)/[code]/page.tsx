@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { countriesApis } from "src/apis/data";
+import { cookies } from "next/headers";
 
 async function Country({ params }: { params: { code: string } }) {
   const data = await countriesApis.getCountryByCode(params.code);

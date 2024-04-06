@@ -1,9 +1,9 @@
+import { cookies } from "next/headers";
 import { countriesApis } from "src/apis/data";
 import CountryCard from "src/components/common/countryCard";
 import CountrySearch from "src/components/filter/countrySearch";
 import RegionSelect from "src/components/filter/regionSelect";
 import { Country } from "src/types/countries";
-
 
 export default async function Home({
   searchParams,
@@ -18,7 +18,7 @@ export default async function Home({
     getCountriesByName,
     getCountriesByRegion,
     getAllCountriesNoCache,
-    getAllCountriesFetch
+    getAllCountriesFetch,
   } = countriesApis;
 
   const countries = searchParams.region
@@ -49,4 +49,3 @@ export default async function Home({
     </main>
   );
 }
-  

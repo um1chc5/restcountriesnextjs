@@ -3,9 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Country } from "src/types/countries";
+import { cookies } from "next/headers";
 
 function CountryCard({ country }: { country: Country }) {
-  // console.log("trong component", country);
   return (
     <Link key={country.cca2} href={`/${country.cca3}`}>
       <Card className="h-full transition-transform duration-200 hover:translate-y-[-4px] hover:shadow dark:bg-dark-blue">
