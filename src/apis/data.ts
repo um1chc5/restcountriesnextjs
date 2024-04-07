@@ -2,7 +2,6 @@ import { Countries } from "src/types/countries";
 import { http } from "./http";
 import { cache } from "react";
 
-
 export const countriesApis = {
   getAllCountries: cache(async function () {
     try {
@@ -16,9 +15,9 @@ export const countriesApis = {
   getAllCountriesFetch: cache(async function () {
     try {
       // console.log("hehe fetch");
-      const res = await fetch('https://restcountries.com/v3.1/all');
-      const data = await res.json()
-      return {data: data as Countries} 
+      const res = await fetch("https://restcountries.com/v3.1/all");
+      const data = await res.json();
+      return { data: data as Countries };
     } catch (error) {
       throw error;
     }

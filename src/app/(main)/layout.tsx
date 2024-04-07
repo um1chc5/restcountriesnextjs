@@ -3,7 +3,7 @@ import { Nunito } from "next/font/google";
 import "src/app/globals.css";
 import { Toaster } from "src/components/ui/toaster";
 import Header from "src/components/common/header";
-import AppProvider from "../_AppProvider/AppProvider";
+import AppProvider from "../../components/AppProvider/AppProvider";
 import { cookies } from "next/headers";
 
 const nunito = Nunito({ subsets: ["vietnamese"] });

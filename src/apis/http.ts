@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from "axios";
+import { cookies } from "next/headers";
 
 class Http {
   instance: AxiosInstance;

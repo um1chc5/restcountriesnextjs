@@ -42,6 +42,7 @@ function Login() {
       toast({
         title: "Đăng nhập thành công",
       });
+
       nextServerHttp.post("/api/auth", res?.data);
       // push("/");
     } catch (error) {

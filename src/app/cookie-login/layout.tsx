@@ -1,8 +1,8 @@
 import { Toaster } from "src/components/ui/toaster";
 import { Nunito } from "next/font/google";
 import "src/app/globals.css";
-import AppProvider from "../_AppProvider/AppProvider";
 import { cookies } from "next/headers";
+import AppProvider from "src/components/AppProvider";
 
 const nunito = Nunito({ subsets: ["vietnamese"] });
 
