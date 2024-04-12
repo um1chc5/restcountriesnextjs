@@ -1,22 +1,30 @@
 "use client";
 
+import CheckTokenExpire from "hooks/CheckTokenExpire";
 import React from "react";
 import { tokenStorage } from "src/apis/http";
 
 function AppProvider({
   children,
-  initialTokens,
+  initialTokens: { access_token, refresh_token },
 }: {
   children: React.ReactNode;
-  initialTokens?: {
+  initialTokens: {
     access_token: string;
     refresh_token: string;
   };
 }) {
-  tokenStorage.accessToken = initialTokens?.access_token ?? "";
-  tokenStorage.refreshToken = initialTokens?.refresh_token ?? "";
+  if (access_token && refresh_token) {
+    tokenStorage.accessToken = access_token;
+    tokenStorage.refreshToken = refresh_token;
+  }
 
-  return <>{children}</>;
+  return (
+    <>
+      {children}
+      <CheckTokenExpire />
+    </>
+  );
 }
 
 export default AppProvider;

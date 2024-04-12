@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from "axios";
-import { cookies } from "next/headers";
+import { jwtDecode } from "jwt-decode";
 
 class Http {
   instance: AxiosInstance;
@@ -17,6 +17,9 @@ class AuthHttp {
     this.instance = axios.create({
       baseURL: "https://api-ecom.duthanhduoc.com/",
       timeout: 20000,
+      headers: {
+        "expire-access-token": 60 * 3,
+      },
     });
 
     this.instance.interceptors.request.use(
@@ -45,10 +48,20 @@ class NextServerHttp {
 class TokenStorage {
   private access_token = "";
   private refresh_token = "";
+  private accessTokenExpireTime = new Date();
+  private refreshTokenExpireTime = new Date();
   set accessToken(token: string) {
+    const decode = jwtDecode(token);
+    if (decode.exp) {
+      this.accessTokenExpireTime = new Date(decode.exp * 1000);
+    }
     this.access_token = token;
   }
   set refreshToken(token: string) {
+    const decode = jwtDecode(token);
+    if (decode.exp) {
+      this.refreshTokenExpireTime = new Date(decode.exp * 1000);
+    }
     this.refresh_token = token;
   }
   get accessToken() {
@@ -56,6 +69,14 @@ class TokenStorage {
   }
   get refreshToken() {
     return this.refresh_token;
+  }
+
+  get accessTokenExpire() {
+    return this.accessTokenExpireTime;
+  }
+
+  get refreshTokenExpire() {
+    return this.refreshTokenExpireTime;
   }
 }
 

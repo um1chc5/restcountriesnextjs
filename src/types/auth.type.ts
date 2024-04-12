@@ -9,4 +9,8 @@ export type AuthResponse = SuccessResponse<{
   user: User;
 }>;
 
+export type RenewAccessToken = SuccessResponse<{
+  access_token: string;
+}>;
+
 export type RefreshTokenResponse = SuccessResponse<{ access_token: string }>;
